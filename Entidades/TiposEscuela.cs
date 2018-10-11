@@ -1,4 +1,4 @@
-namespace CoreEscuela.Entidades
+namespace Proy_Escuela.Entidades
 {
     public enum TiposEscuela
     {
