@@ -33,20 +33,33 @@ namespace Proy_Escuela
             Console.ReadLine();
 
             ImprimirCursos(arregloCursos);
-            
+
         }
 
         private static void ImprimirCursos(Curso[] arregloCursos)
         {
-            
+
             System.Console.WriteLine("=============================================");
             System.Console.WriteLine(" Curso | UniqueID");
-            int contador = 0;
+            //int contador = 0;
+            foreach (var item in arregloCursos)
+            {
+                item.Imprimir();
+            }
+            /*
+            do
+            {
+                arregloCursos[contador].Imprimir();
+                contador++;
+            }while (contador < arregloCursos.Length);
+            */
+            /*
             while (contador < arregloCursos.Length)
             {
                 arregloCursos[contador].Imprimir();
                 contador++;
             }
+             */
             /*
             for (int i = 0; i < arregloCursos.Length; i++)
             {
