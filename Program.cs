@@ -12,24 +12,48 @@ namespace Proy_Escuela
             _tipo: TiposEscuela.Primaria,
             _ciudad: "Bogota",
             _pais: "Colombia");
-            
-            var curso1 = new Curso(){
+
+            var arregloCursos = new Curso[3];
+            arregloCursos[0] = new Curso()
+            {
                 Nombre = "101"
             };
-            var curso2 = new Curso(){
+            arregloCursos[1] = new Curso()
+            {
                 Nombre = "201"
             };
-            var curso3 = new Curso(){
+            arregloCursos[2] = new Curso()
+            {
                 Nombre = "301"
             };
 
             Console.WriteLine(escuela.ToString());
+
+            Console.WriteLine("\nPresione ENTER para continuar");
+            Console.ReadLine();
+
+            ImprimirCursos(arregloCursos);
+            
+        }
+
+        private static void ImprimirCursos(Curso[] arregloCursos)
+        {
+            
             System.Console.WriteLine("=============================================");
             System.Console.WriteLine(" Curso | UniqueID");
-            curso1.Imprimir();
-            curso2.Imprimir();
-            curso3.Imprimir();
-            System.Console.WriteLine("=============================================");
+            int contador = 0;
+            while (contador < arregloCursos.Length)
+            {
+                arregloCursos[contador].Imprimir();
+                contador++;
+            }
+            /*
+            for (int i = 0; i < arregloCursos.Length; i++)
+            {
+                arregloCursos[i].Imprimir();    
+            }
+             */
+            System.Console.WriteLine("=============================================\n");
         }
     }
 }
