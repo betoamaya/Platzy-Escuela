@@ -1,5 +1,6 @@
 ﻿using System;
 using Proy_Escuela.Entidades;
+using static System.Console;
 
 namespace Proy_Escuela
 {
@@ -13,60 +14,36 @@ namespace Proy_Escuela
             _ciudad: "Bogota",
             _pais: "Colombia");
 
-            var arregloCursos = new Curso[3];
-            arregloCursos[0] = new Curso()
+            escuela.Cursos = new Curso[]
             {
-                Nombre = "101"
-            };
-            arregloCursos[1] = new Curso()
-            {
-                Nombre = "201"
-            };
-            arregloCursos[2] = new Curso()
-            {
-                Nombre = "301"
+                new Curso(){Nombre = "101"},
+                new Curso(){Nombre = "201"},
+                new Curso(){Nombre = "301"}
             };
 
-            Console.WriteLine(escuela.ToString());
+            WriteLine(escuela.ToString());
 
-            Console.WriteLine("\nPresione ENTER para continuar");
-            Console.ReadLine();
+            WriteLine("\nPresione ENTER para continuar");
+            ReadLine();
 
-            ImprimirCursos(arregloCursos);
+            ImprimirCursos(escuela);
 
         }
 
-        private static void ImprimirCursos(Curso[] arregloCursos)
+        private static void ImprimirCursos(Escuela escuela)
         {
-
-            System.Console.WriteLine("=============================================");
-            System.Console.WriteLine(" Curso | UniqueID");
-            //int contador = 0;
-            foreach (var item in arregloCursos)
+            if (escuela?.Cursos != null)
             {
-                item.Imprimir();
+                WriteLine("=============================================");
+                WriteLine(" Curso | UniqueID");
+                WriteLine("=============================================");
+                foreach (var item in escuela.Cursos)
+                {
+                    item.Imprimir();
+                }
+                WriteLine("=============================================");
+                WriteLine($"Registros: {escuela.Cursos.Length}\n");
             }
-            /*
-            do
-            {
-                arregloCursos[contador].Imprimir();
-                contador++;
-            }while (contador < arregloCursos.Length);
-            */
-            /*
-            while (contador < arregloCursos.Length)
-            {
-                arregloCursos[contador].Imprimir();
-                contador++;
-            }
-             */
-            /*
-            for (int i = 0; i < arregloCursos.Length; i++)
-            {
-                arregloCursos[i].Imprimir();    
-            }
-             */
-            System.Console.WriteLine("=============================================\n");
         }
     }
 }
