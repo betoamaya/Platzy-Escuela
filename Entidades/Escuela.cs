@@ -8,6 +8,8 @@ namespace Proy_Escuela.Entidades
         public string Pais { get; set; }
         public TiposEscuela TipoEscuela { get; set; }
 
+        public Curso[] Cursos { get; set; }
+
         public Escuela(string _nombre, int _año, TiposEscuela _tipo, string _ciudad = "",string _pais = "")
         {
             (this.Nombre, this.AñoDeCreación, this.TipoEscuela) = (_nombre, _año, _tipo);
