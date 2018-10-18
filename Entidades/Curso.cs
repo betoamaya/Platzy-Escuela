@@ -9,7 +9,7 @@ namespace Proy_Escuela.Entidades
         public TiposJornada TipoJornada { get; set; }
         public Curso() => UniqueId = Guid.NewGuid().ToString();
         public void Imprimir(){
-            System.Console.WriteLine($"  {Nombre}  | {UniqueId}");
+            System.Console.WriteLine($"  {Nombre}  | {UniqueId} | {TipoJornada}");
         }
     }
 }
