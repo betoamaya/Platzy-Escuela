@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Proy_Escuela.Entidades
 {
     class Escuela
@@ -8,7 +11,7 @@ namespace Proy_Escuela.Entidades
         public string Pais { get; set; }
         public TiposEscuela TipoEscuela { get; set; }
 
-        public Curso[] Cursos { get; set; }
+        public List<Curso> Cursos { get; set; }
 
         public Escuela(string _nombre, int _año, TiposEscuela _tipo, string _ciudad = "",string _pais = "")
         {
@@ -23,5 +26,7 @@ namespace Proy_Escuela.Entidades
         {
             return $"Bienvenidos a {TipoEscuela} \"{Nombre}\"!!! {System.Environment.NewLine}Fundada desde {AñoDeCreación} \nEn{Ciudad}, {Pais}";
         }
+
+       
     }
 }
