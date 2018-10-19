@@ -15,7 +15,7 @@ namespace Proy_Escuela
             _ciudad: "Bogota",
             _pais: "Colombia");
 
-            
+
             escuela.Cursos = new List<Curso>()
             {
                 new Curso(){Nombre = "101", TipoJornada = TiposJornada.Mañana},
@@ -23,9 +23,9 @@ namespace Proy_Escuela
                 new Curso(){Nombre = "301", TipoJornada = TiposJornada.Mañana}
             };
 
-            escuela.Cursos.Add(new Curso(){Nombre = "102", TipoJornada = TiposJornada.Tarde});
-            escuela.Cursos.Add(new Curso(){Nombre = "202", TipoJornada = TiposJornada.Tarde});
-            escuela.Cursos.Add(new Curso(){Nombre = "302", TipoJornada = TiposJornada.Tarde});
+            escuela.Cursos.Add(new Curso() { Nombre = "102", TipoJornada = TiposJornada.Tarde });
+            escuela.Cursos.Add(new Curso() { Nombre = "202", TipoJornada = TiposJornada.Tarde });
+            escuela.Cursos.Add(new Curso() { Nombre = "302", TipoJornada = TiposJornada.Tarde });
             var otraColeccion = new List<Curso>(){
                 new Curso(){Nombre = "103", TipoJornada = TiposJornada.Noche},
                 new Curso(){Nombre = "203", TipoJornada = TiposJornada.Noche},
@@ -34,6 +34,21 @@ namespace Proy_Escuela
             escuela.Cursos.AddRange(otraColeccion);
             otraColeccion.Clear();
 
+            /* Agregar un curso */
+            Curso tmp = new Curso() { Nombre = "999", TipoJornada = TiposJornada.Noche };
+            escuela.Cursos.Add(tmp);
+            /* Quitar el curso */
+            escuela.Cursos.Remove(tmp);
+
+            /* RemoveAll */
+            escuela.Cursos.Add(tmp);
+            escuela.Cursos.RemoveAll(Predicado);
+            
+            escuela.Cursos.Add(tmp);
+            Predicate<Curso> miAlgoritmo = Predicado; //Encapsulamiento de Algoritmos
+            escuela.Cursos.RemoveAll(miAlgoritmo);
+
+
             WriteLine(escuela.ToString());
 
             WriteLine("\nPresione ENTER para continuar");
@@ -41,6 +56,13 @@ namespace Proy_Escuela
 
             ImprimirCursos(escuela);
 
+            WriteLine("Curso.Hash " + tmp.GetHashCode());
+
+        }
+
+        private static bool Predicado(Curso obj)
+        {
+            return obj.Nombre == "999";
         }
 
         private static void ImprimirCursos(Escuela escuela)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Proy_Escuela.Entidades
@@ -25,5 +26,7 @@ namespace Proy_Escuela.Entidades
         {
             return $"Bienvenidos a {TipoEscuela} \"{Nombre}\"!!! {System.Environment.NewLine}Fundada desde {AñoDeCreación} \nEn{Ciudad}, {Pais}";
         }
+
+       
     }
 }
