@@ -43,11 +43,18 @@ namespace Proy_Escuela
             /* RemoveAll */
             escuela.Cursos.Add(tmp);
             escuela.Cursos.RemoveAll(Predicado);
-            
+
             escuela.Cursos.Add(tmp);
             Predicate<Curso> miAlgoritmo = Predicado; //Encapsulamiento de Algoritmos
             escuela.Cursos.RemoveAll(miAlgoritmo);
 
+            /* delegado */
+            escuela.Cursos.Add(tmp);
+            escuela.Cursos.RemoveAll(delegate (Curso cur) { return cur.Nombre == "999"; });
+            
+            /* Expresion Lambda - mas conpacto */
+            escuela.Cursos.Add(tmp);
+            escuela.Cursos.RemoveAll((cur) => cur.Nombre == "999" && cur.TipoJornada == TiposJornada.Noche);
 
             WriteLine(escuela.ToString());
 
@@ -59,7 +66,7 @@ namespace Proy_Escuela
             WriteLine("Curso.Hash " + tmp.GetHashCode());
 
         }
-
+        
         private static bool Predicado(Curso obj)
         {
             return obj.Nombre == "999";
