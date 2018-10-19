@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Proy_Escuela.Entidades;
+using Proy_Escuela.Util;
 using static System.Console;
 
 namespace Proy_Escuela
@@ -17,7 +18,7 @@ namespace Proy_Escuela
             _pais: "Colombia");
         }
 
-        public void inicializar()
+        public void Inicializar()
         {
             Escuela.Cursos = new List<Curso>()
             {
@@ -39,17 +40,18 @@ namespace Proy_Escuela
                 new Curso(){Nombre = "603", TipoJornada = TiposJornada.Noche}
             };
         }
-        public void imprimirCursos(){
+        public void ImprimirCursos()
+        {
             if (Escuela?.Cursos != null)
             {
-                WriteLine("============================================================");
+                Printer.DibujarLinea(60);
                 WriteLine(" Curso | UniqueID                             | Tipo Jornada");
-                WriteLine("============================================================");
+                Printer.DibujarLinea(60);
                 foreach (var item in Escuela.Cursos)
                 {
                     item.Imprimir();
                 }
-                WriteLine("============================================================");
+                Printer.DibujarLinea(60);
                 WriteLine($"Registros: {Escuela.Cursos.Count}\n");
             }
         }

@@ -24,7 +24,7 @@ namespace Proy_Escuela.Entidades
 
         public override string ToString()
         {
-            return $"Bienvenidos a {TipoEscuela} \"{Nombre}\"!!! {System.Environment.NewLine}Fundada desde {AñoDeCreación} \nEn{Ciudad}, {Pais}";
+            return $"{TipoEscuela} \"{Nombre}\"!!! {System.Environment.NewLine}Fundada desde {AñoDeCreación} \nEn{Ciudad}, {Pais}";
         }
 
        
