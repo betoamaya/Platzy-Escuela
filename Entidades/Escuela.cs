@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Proy_Escuela.Entidades
 {
-    class Escuela
+    public class Escuela
     {
         public string Nombre { get; set; }
         public int AñoDeCreación { get; set; }
