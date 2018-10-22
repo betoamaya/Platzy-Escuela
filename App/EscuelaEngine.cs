@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Proy_Escuela.Entidades;
 using Proy_Escuela.Util;
 using static System.Console;
@@ -8,7 +10,7 @@ namespace Proy_Escuela
     public class EscuelaEngine
     {
         public Escuela Escuela { get; set; }
-
+        private static Random rng = new Random();
         public EscuelaEngine()
         {
             Escuela = new Escuela(_nombre: "Platzi Academy",
@@ -19,6 +21,84 @@ namespace Proy_Escuela
         }
 
         public void Inicializar()
+        {
+            CargarCursos();
+            foreach (var curso in Escuela.Cursos)
+            {
+                var listaAlumnos = CargarAlumnos();
+                if (curso.Alumnos == null)
+                {
+                    curso.Alumnos = listaAlumnos;
+                }
+                else
+                {
+                    curso.Alumnos.AddRange(listaAlumnos);
+                }
+            }
+            //CargarAsignaturas();
+            //CargarEvaluaciones();
+        }
+
+        private void CargarEvaluaciones()
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void CargarAsignaturas()
+        {
+            foreach (var curso in Escuela.Cursos)
+            {
+                IEnumerable<Asignatura> listaAsignaturas = new List<Asignatura>(){
+                    new Asignatura{Nombre ="Matematicas"},
+                    new Asignatura{Nombre ="Español"},
+                    new Asignatura{Nombre ="Ciencias Naturales"},
+                    new Asignatura{Nombre ="Ciencias Sociales"},
+                    new Asignatura{Nombre ="Educación Fisica"},
+                };
+                curso.Asignaturas.AddRange(listaAsignaturas);
+            }
+        }
+
+        private List<Alumno> CargarAlumnos()
+        {
+            string[] nombre = {"JUAN","JOSÉ LUIS","JOSÉ","MARÍA GUADALUPE","FRANCISCO","GUADALUPE","MARÍA","JUANA","ANTONIO",
+                                "JESÚS","MIGUEL ÁNGEL","PEDRO","ALEJANDRO","MANUEL","MARGARITA","MARÍA DEL CARMEN","JUAN CARLOS",
+                                "ROBERTO","FERNANDO","DANIEL","CARLOS","JORGE","RICARDO","MIGUEL","EDUARDO","JAVIER","RAFAEL",
+                                "MARTÍN","RAÚL","DAVID","JOSEFINA","JOSÉ ANTONIO","ARTURO","MARCO ANTONIO","JOSÉ MANUEL",
+                                "FRANCISCO JAVIER","ENRIQUE","VERÓNICA","GERARDO","MARÍA ELENA","LETICIA","ROSA","MARIO","FRANCISCA",
+                                "ALFREDO","TERESA","ALICIA","MARÍA FERNANDA","SERGIO","ALBERTO","LUIS","ARMANDO","ALEJANDRA","MARTHA",
+                                "SANTIAGO","YOLANDA","PATRICIA","MARÍA DE LOS ÁNGELES","JUAN MANUEL","ROSA MARÍA","ELIZABETH",
+                                "GLORIA","ÁNGEL","GABRIELA","SALVADOR","VÍCTOR MANUEL","SILVIA","MARÍA DE GUADALUPE","MARÍA DE JESÚS",
+                                "GABRIEL","ANDRÉS","ÓSCAR","GUILLERMO","ANA MARÍA","RAMÓN","MARÍA ISABEL","PABLO","RUBEN","ANTONIA",
+                                "MARÍA LUISA","LUIS ÁNGEL","MARÍA DEL ROSARIO","FELIPE","JORGE JESÚS","JAIME","JOSÉ GUADALUPE",
+                                "JULIO CESAR","JOSÉ DE JESÚS","DIEGO","ARACELI","ANDREA","ISABEL","MARÍA TERESA","IRMA","CARMEN",
+                                "LUCÍA","ADRIANA","AGUSTÍN","MARÍA DE LA LUZ","GUSTAVO"};
+
+            string[] apellido = {"GARCIA","GONZALEZ","RODRIGUEZ","FERNANDEZ","LOPEZ","MARTINEZ","SANCHEZ","PEREZ","GOMEZ","MARTIN",
+                                    "JIMENEZ","RUIZ","HERNANDEZ","DIAZ","MORENO","MUÑOZ","ALVAREZ","ROMERO","ALONSO","GUTIERREZ",
+                                    "NAVARRO","TORRES","DOMINGUEZ","VAZQUEZ","RAMOS","GIL","RAMIREZ","SERRANO","BLANCO","MOLINA",
+                                    "MORALES","SUAREZ","ORTEGA","DELGADO","CASTRO","ORTIZ","RUBIO","MARIN","SANZ","NUÑEZ","IGLESIAS",
+                                    "MEDINA","GARRIDO","CORTES","CASTILLO","SANTOS","LOZANO","GUERRERO","CANO","PRIETO","MENDEZ",
+                                    "CRUZ","CALVO","GALLEGO","HERRERA","MARQUEZ","LEON","VIDAL","PEÑA","FLORES","CABRERA","CAMPOS",
+                                    "VEGA","FUENTES","CARRASCO","DIEZ","REYES","CABALLERO","NIETO","AGUILAR","PASCUAL","SANTANA",
+                                    "HERRERO","MONTERO","LORENZO","HIDALGO","GIMENEZ","IBAÑEZ","FERRER","DURAN","SANTIAGO","BENITEZ",
+                                    "VARGAS","MORA","VICENTE","ARIAS","CARMONA","CRESPO","ROMAN","PASTOR","SOTO","SAEZ","VELASCO",
+                                    "MOYA","SOLER","PARRA","ESTEBAN","BRAVO","GALLARDO","ROJAS"};
+            /*var listaAlumnos = from n in nombre
+                               from a in apellido
+                               select new Alumno { Nombre = $"{n} {a}" };
+                               */
+            var listaAlumnos = new List<Alumno>();
+
+            for (int i = 0; i < 30; i++)
+            {
+                listaAlumnos.Add(new Alumno() { Nombre = $"{nombre[rng.Next(0, nombre.Length)].ToString()} {apellido[rng.Next(0, apellido.Length)].ToString()}" });
+            }
+
+            return listaAlumnos;
+        }
+
+        private void CargarCursos()
         {
             Escuela.Cursos = new List<Curso>()
             {
@@ -40,6 +120,7 @@ namespace Proy_Escuela
                 new Curso(){Nombre = "603", TipoJornada = TiposJornada.Noche}
             };
         }
+
         public void ImprimirCursos()
         {
             if (Escuela?.Cursos != null)
