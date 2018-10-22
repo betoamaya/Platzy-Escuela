@@ -30,12 +30,30 @@ namespace Proy_Escuela
                 cantidad = rng.Next(25, 32);
                 curso.Alumnos = CargarAlumnos(_noAlumnos: cantidad);
             }
-            //CargarEvaluaciones();
+            CargarEvaluaciones();
         }
 
         private void CargarEvaluaciones()
         {
-            //throw new NotImplementedException();
+            foreach (var curso in Escuela.Cursos)
+            {
+                foreach (var alumno in curso.Alumnos)
+                {
+                    alumno.Calificaciones = generarCalificaciones(curso.Asignaturas);
+                }
+            }
+        }
+
+        private List<Evaluaciones> generarCalificaciones(List<Asignatura> asignaturas)
+        {
+            var listaCalificaciones = new List<Evaluaciones>();
+            double califición = 0.0;
+            foreach (var materia in asignaturas)
+            {
+                califición = rng.NextDouble() * (5.0 - 0.0) + 0.0;
+                listaCalificaciones.Add(new Evaluaciones(){Materia = materia.Nombre, Calificacion = califición});
+            }
+            return listaCalificaciones;
         }
 
         private void CargarAsignaturas()
@@ -79,7 +97,6 @@ namespace Proy_Escuela
                                     "VARGAS","MORA","VICENTE","ARIAS","CARMONA","CRESPO","ROMAN","PASTOR","SOTO","SAEZ","VELASCO",
                                     "MOYA","SOLER","PARRA","ESTEBAN","BRAVO","GALLARDO","ROJAS"};
             var listaAlumnos = new List<Alumno>();
-
             for (int i = 0; i < _noAlumnos; i++)
             {
                 listaAlumnos.Add(new Alumno() { Nombre = $"{nombre[rng.Next(0, nombre.Length)].ToString()} {apellido[rng.Next(0, apellido.Length)].ToString()}" });
