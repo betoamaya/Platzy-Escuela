@@ -23,19 +23,13 @@ namespace Proy_Escuela
         public void Inicializar()
         {
             CargarCursos();
+            CargarAsignaturas();
+            int cantidad = 0;
             foreach (var curso in Escuela.Cursos)
             {
-                var listaAlumnos = CargarAlumnos();
-                if (curso.Alumnos == null)
-                {
-                    curso.Alumnos = listaAlumnos;
-                }
-                else
-                {
-                    curso.Alumnos.AddRange(listaAlumnos);
-                }
+                cantidad = rng.Next(25, 32);
+                curso.Alumnos = CargarAlumnos(_noAlumnos: cantidad);
             }
-            //CargarAsignaturas();
             //CargarEvaluaciones();
         }
 
@@ -48,18 +42,18 @@ namespace Proy_Escuela
         {
             foreach (var curso in Escuela.Cursos)
             {
-                IEnumerable<Asignatura> listaAsignaturas = new List<Asignatura>(){
+                var listaAsignaturas = new List<Asignatura>(){
                     new Asignatura{Nombre ="Matematicas"},
                     new Asignatura{Nombre ="Español"},
                     new Asignatura{Nombre ="Ciencias Naturales"},
                     new Asignatura{Nombre ="Ciencias Sociales"},
                     new Asignatura{Nombre ="Educación Fisica"},
                 };
-                curso.Asignaturas.AddRange(listaAsignaturas);
+                curso.Asignaturas = listaAsignaturas;
             }
         }
 
-        private List<Alumno> CargarAlumnos()
+        private List<Alumno> CargarAlumnos(int _noAlumnos)
         {
             string[] nombre = {"JUAN","JOSÉ LUIS","JOSÉ","MARÍA GUADALUPE","FRANCISCO","GUADALUPE","MARÍA","JUANA","ANTONIO",
                                 "JESÚS","MIGUEL ÁNGEL","PEDRO","ALEJANDRO","MANUEL","MARGARITA","MARÍA DEL CARMEN","JUAN CARLOS",
@@ -84,13 +78,9 @@ namespace Proy_Escuela
                                     "HERRERO","MONTERO","LORENZO","HIDALGO","GIMENEZ","IBAÑEZ","FERRER","DURAN","SANTIAGO","BENITEZ",
                                     "VARGAS","MORA","VICENTE","ARIAS","CARMONA","CRESPO","ROMAN","PASTOR","SOTO","SAEZ","VELASCO",
                                     "MOYA","SOLER","PARRA","ESTEBAN","BRAVO","GALLARDO","ROJAS"};
-            /*var listaAlumnos = from n in nombre
-                               from a in apellido
-                               select new Alumno { Nombre = $"{n} {a}" };
-                               */
             var listaAlumnos = new List<Alumno>();
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < _noAlumnos; i++)
             {
                 listaAlumnos.Add(new Alumno() { Nombre = $"{nombre[rng.Next(0, nombre.Length)].ToString()} {apellido[rng.Next(0, apellido.Length)].ToString()}" });
             }
@@ -125,14 +115,14 @@ namespace Proy_Escuela
         {
             if (Escuela?.Cursos != null)
             {
-                Printer.DibujarLinea(60);
-                WriteLine(" Curso | UniqueID                             | Tipo Jornada");
-                Printer.DibujarLinea(60);
+                Printer.DibujarLinea(68);
+                WriteLine(" Curso | UniqueID                             | Cant. | Tipo Jornada");
+                Printer.DibujarLinea(68);
                 foreach (var item in Escuela.Cursos)
                 {
                     item.Imprimir();
                 }
-                Printer.DibujarLinea(60);
+                Printer.DibujarLinea(68);
                 WriteLine($"Registros: {Escuela.Cursos.Count}\n");
             }
         }

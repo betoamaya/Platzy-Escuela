@@ -12,7 +12,7 @@ namespace Proy_Escuela.Entidades
         public List<Alumno> Alumnos{ get; set; }
         public Curso() => UniqueId = Guid.NewGuid().ToString();
         public void Imprimir(){
-            System.Console.WriteLine($"  {Nombre}  | {UniqueId} | {TipoJornada}");
+            System.Console.WriteLine($"  {Nombre}  | {UniqueId} |  {Alumnos.Count}   | {TipoJornada} ");
         }
     }
 }
