@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Proy_Escuela.Entidades
 {
@@ -7,9 +8,11 @@ namespace Proy_Escuela.Entidades
         public string UniqueId { get; private set; } //No puede ser modificado
         public string Nombre { get; set; }
         public TiposJornada TipoJornada { get; set; }
+        public List<Asignatura> Asignaturas { get; set; }
+        public List<Alumno> Alumnos{ get; set; }
         public Curso() => UniqueId = Guid.NewGuid().ToString();
         public void Imprimir(){
-            System.Console.WriteLine($"  {Nombre}  | {UniqueId} | {TipoJornada}");
+            System.Console.WriteLine($"  {Nombre}  | {UniqueId} |  {Alumnos.Count}   | {TipoJornada} ");
         }
     }
 }

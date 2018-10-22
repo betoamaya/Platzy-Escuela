@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Proy_Escuela.Entidades
 {
-    class Escuela
+    public class Escuela
     {
         public string Nombre { get; set; }
         public int AñoDeCreación { get; set; }
@@ -24,7 +24,7 @@ namespace Proy_Escuela.Entidades
 
         public override string ToString()
         {
-            return $"Bienvenidos a {TipoEscuela} \"{Nombre}\"!!! {System.Environment.NewLine}Fundada desde {AñoDeCreación} \nEn{Ciudad}, {Pais}";
+            return $"{TipoEscuela} \"{Nombre}\"!!! {System.Environment.NewLine}Fundada desde {AñoDeCreación} \nEn{Ciudad}, {Pais}";
         }
 
        
