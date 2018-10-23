@@ -39,19 +39,19 @@ namespace Proy_Escuela
             {
                 foreach (var alumno in curso.Alumnos)
                 {
-                    alumno.Calificaciones = generarCalificaciones(curso.Asignaturas);
+                    alumno.Evaluaciones = generarEvaluaciones(curso.Asignaturas);
                 }
             }
         }
 
-        private List<Evaluaciones> generarCalificaciones(List<Asignatura> asignaturas)
+        private List<Evaluación> generarEvaluaciones(List<Asignatura> asignaturas)
         {
-            var listaCalificaciones = new List<Evaluaciones>();
+            var listaCalificaciones = new List<Evaluación>();
             double califición = 0.0;
             foreach (var materia in asignaturas)
             {
                 califición = rng.NextDouble() * (5.0 - 0.0) + 0.0;
-                listaCalificaciones.Add(new Evaluaciones(){Materia = materia.Nombre, Calificacion = califición});
+                listaCalificaciones.Add(new Evaluación(){Materia = materia.Nombre, Calificacion = califición});
             }
             return listaCalificaciones;
         }
