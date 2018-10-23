@@ -101,7 +101,6 @@ namespace Proy_Escuela
             {
                 listaAlumnos.Add(new Alumno() { Nombre = $"{nombre[rng.Next(0, nombre.Length)].ToString()} {apellido[rng.Next(0, apellido.Length)].ToString()}" });
             }
-
             return listaAlumnos;
         }
 
