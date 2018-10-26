@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace Proy_Escuela.Entidades
 {
-    public class Escuela
+    public class Escuela: ObjetoEscuelaBase
     {
-        public string Nombre { get; set; }
         public int AñoDeCreación { get; set; }
         public string Ciudad { get; set; }
         public string Pais { get; set; }

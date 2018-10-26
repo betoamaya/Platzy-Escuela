@@ -7,7 +7,7 @@ using static System.Console;
 
 namespace Proy_Escuela
 {
-    public class EscuelaEngine
+    public sealed class EscuelaEngine
     {
         public Escuela Escuela { get; set; }
         private static Random rng = new Random();
@@ -31,6 +31,8 @@ namespace Proy_Escuela
                 curso.Alumnos = CargarAlumnos(_noAlumnos: cantidad);
             }
             CargarEvaluaciones();
+
+            var listaObjetos = ObtenerLista();
         }
 
         private void CargarEvaluaciones()
@@ -39,19 +41,19 @@ namespace Proy_Escuela
             {
                 foreach (var alumno in curso.Alumnos)
                 {
-                    alumno.Calificaciones = generarCalificaciones(curso.Asignaturas);
+                    alumno.Evaluaciones = generarEvaluaciones(curso.Asignaturas);
                 }
             }
         }
 
-        private List<Evaluaciones> generarCalificaciones(List<Asignatura> asignaturas)
+        private List<Evaluación> generarEvaluaciones(List<Asignatura> asignaturas)
         {
-            var listaCalificaciones = new List<Evaluaciones>();
+            var listaCalificaciones = new List<Evaluación>();
             double califición = 0.0;
             foreach (var materia in asignaturas)
             {
                 califición = rng.NextDouble() * (5.0 - 0.0) + 0.0;
-                listaCalificaciones.Add(new Evaluaciones(){Materia = materia.Nombre, Calificacion = califición});
+                listaCalificaciones.Add(new Evaluación(){Nombre = materia.Nombre, Calificacion = califición});
             }
             return listaCalificaciones;
         }
@@ -101,7 +103,6 @@ namespace Proy_Escuela
             {
                 listaAlumnos.Add(new Alumno() { Nombre = $"{nombre[rng.Next(0, nombre.Length)].ToString()} {apellido[rng.Next(0, apellido.Length)].ToString()}" });
             }
-
             return listaAlumnos;
         }
 
@@ -142,6 +143,21 @@ namespace Proy_Escuela
                 Printer.DibujarLinea(68);
                 WriteLine($"Registros: {Escuela.Cursos.Count}\n");
             }
+        }
+        public List<ObjetoEscuelaBase> ObtenerLista(){
+            var lista = new List<ObjetoEscuelaBase>();
+           lista.Add(Escuela);
+           lista.AddRange(Escuela.Cursos);
+           foreach (var curso in Escuela.Cursos)
+           {
+               lista.AddRange(curso.Alumnos);
+               lista.AddRange(curso.Asignaturas);
+               foreach (var alumno in curso.Alumnos)
+               {
+                   lista.AddRange(alumno.Evaluaciones);
+               }
+           }
+            return lista;
         }
     }
 }
