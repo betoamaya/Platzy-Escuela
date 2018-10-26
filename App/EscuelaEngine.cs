@@ -7,7 +7,7 @@ using static System.Console;
 
 namespace Proy_Escuela
 {
-    public class EscuelaEngine
+    public sealed class EscuelaEngine
     {
         public Escuela Escuela { get; set; }
         private static Random rng = new Random();
