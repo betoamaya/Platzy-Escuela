@@ -31,6 +31,8 @@ namespace Proy_Escuela
                 curso.Alumnos = CargarAlumnos(_noAlumnos: cantidad);
             }
             CargarEvaluaciones();
+
+            var listaObjetos = ObtenerLista();
         }
 
         private void CargarEvaluaciones()
@@ -51,7 +53,7 @@ namespace Proy_Escuela
             foreach (var materia in asignaturas)
             {
                 califición = rng.NextDouble() * (5.0 - 0.0) + 0.0;
-                listaCalificaciones.Add(new Evaluación(){Materia = materia.Nombre, Calificacion = califición});
+                listaCalificaciones.Add(new Evaluación(){Nombre = materia.Nombre, Calificacion = califición});
             }
             return listaCalificaciones;
         }
@@ -141,6 +143,21 @@ namespace Proy_Escuela
                 Printer.DibujarLinea(68);
                 WriteLine($"Registros: {Escuela.Cursos.Count}\n");
             }
+        }
+        public List<ObjetoEscuelaBase> ObtenerLista(){
+            var lista = new List<ObjetoEscuelaBase>();
+           lista.Add(Escuela);
+           lista.AddRange(Escuela.Cursos);
+           foreach (var curso in Escuela.Cursos)
+           {
+               lista.AddRange(curso.Alumnos);
+               lista.AddRange(curso.Asignaturas);
+               foreach (var alumno in curso.Alumnos)
+               {
+                   lista.AddRange(alumno.Evaluaciones);
+               }
+           }
+            return lista;
         }
     }
 }
