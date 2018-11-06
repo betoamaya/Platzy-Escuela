@@ -17,9 +17,9 @@ namespace Proy_Escuela.Entidades
 
         public void LimpiarLugar()
         {
-           Printer.DibujarLinea();
+           Printer.DibujarLinea(30);
            Console.WriteLine("Limpiando Establecimiento...");
-           Console.WriteLine("Curso {Nombre} Limpio");
+           Console.WriteLine($"Curso {Nombre} Limpio");
         }
     }
 }

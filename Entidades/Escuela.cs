@@ -36,7 +36,7 @@ namespace Proy_Escuela.Entidades
            {
                item.LimpiarLugar();
            }
-           Console.WriteLine("Escuela {Nombre} Limpio");
+           Printer.Titulo($"Escuela {Nombre} Limpio");
         }
 
        
