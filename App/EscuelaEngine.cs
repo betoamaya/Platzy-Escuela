@@ -34,7 +34,7 @@ namespace Proy_Escuela
 
             var listaObjetos = ObtenerLista();
         }
-
+#region Metodos de Carga
         private void CargarEvaluaciones()
         {
             foreach (var curso in Escuela.Cursos)
@@ -128,7 +128,7 @@ namespace Proy_Escuela
                 new Curso(){Nombre = "603", TipoJornada = TiposJornada.Noche}
             };
         }
-
+#endregion
         public void ImprimirCursos()
         {
             if (Escuela?.Cursos != null)
