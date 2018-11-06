@@ -22,6 +22,7 @@ namespace Proy_Escuela
 
             engine.ImprimirCursos();
 
+            engine.Escuela.LimpiarLugar();
         }
     }
 }
