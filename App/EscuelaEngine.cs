@@ -32,7 +32,8 @@ namespace Proy_Escuela
             }
             CargarEvaluaciones();
 
-            var listaObjetos = ObtenerLista();
+            int numEvaluaciones = 0;
+            var listaObjetos = ObtenerLista(out numEvaluaciones, _traeEvaludaciones: false);
         }
 
         private void CargarEvaluaciones()
@@ -53,7 +54,7 @@ namespace Proy_Escuela
             foreach (var materia in asignaturas)
             {
                 califición = rng.NextDouble() * (5.0 - 0.0) + 0.0;
-                listaCalificaciones.Add(new Evaluación(){Nombre = materia.Nombre, Calificacion = califición});
+                listaCalificaciones.Add(new Evaluación() { Nombre = materia.Nombre, Calificacion = califición });
             }
             return listaCalificaciones;
         }
@@ -144,20 +145,95 @@ namespace Proy_Escuela
                 WriteLine($"Registros: {Escuela.Cursos.Count}\n");
             }
         }
-        public List<ObjetoEscuelaBase> ObtenerLista(){
+        /* public List<ObjetoEscuelaBase> ObtenerLista()
+        {
             var lista = new List<ObjetoEscuelaBase>();
-           lista.Add(Escuela);
-           lista.AddRange(Escuela.Cursos);
-           foreach (var curso in Escuela.Cursos)
-           {
-               lista.AddRange(curso.Alumnos);
-               lista.AddRange(curso.Asignaturas);
-               foreach (var alumno in curso.Alumnos)
-               {
-                   lista.AddRange(alumno.Evaluaciones);
-               }
-           }
+            lista.Add(Escuela);
+            lista.AddRange(Escuela.Cursos);
+            foreach (var curso in Escuela.Cursos)
+            {
+                lista.AddRange(curso.Alumnos);
+                lista.AddRange(curso.Asignaturas);
+                foreach (var alumno in curso.Alumnos)
+                {
+                    lista.AddRange(alumno.Evaluaciones);
+                }
+            }
             return lista;
+        } */
+        public List<ObjetoEscuelaBase> ObtenerLista(
+            out int numEvaluaciones,
+            bool _traeCursos = true,
+            bool _traeAlumnos = true,
+            bool _traeAsignaturas = true,
+            bool _traeEvaludaciones = true
+            )
+        {
+            var lista = new List<ObjetoEscuelaBase>();
+            numEvaluaciones = 0;
+            lista.Add(Escuela);
+            if (_traeCursos)
+            {
+                lista.AddRange(Escuela.Cursos);
+            }
+            foreach (var curso in Escuela.Cursos)
+            {
+                if (_traeAlumnos)
+                {
+                    lista.AddRange(curso.Alumnos);
+                }
+                if (_traeAsignaturas)
+                {
+                    lista.AddRange(curso.Asignaturas);
+                }
+
+                if (_traeEvaludaciones)
+                {
+                    foreach (var alumno in curso.Alumnos)
+                    {
+                        lista.AddRange(alumno.Evaluaciones);
+                        numEvaluaciones++;
+                    }
+                }
+
+            }
+            return (lista);
         }
+
+
+        /*
+                public (List<ObjetoEscuelaBase>, int) ObtenerLista(bool _traeCursos = true, bool _traeAlumnos = true, bool _traeAsignaturas = true, bool _traeEvaludaciones = true)
+                {
+                    var lista = new List<ObjetoEscuelaBase>();
+                    int numEvaluaciones = 0;
+                    lista.Add(Escuela);
+                    if (_traeCursos)
+                    {
+                        lista.AddRange(Escuela.Cursos);
+                    }
+                    foreach (var curso in Escuela.Cursos)
+                    {
+                        if (_traeAlumnos)
+                        {
+                            lista.AddRange(curso.Alumnos);
+                        }
+                        if (_traeAsignaturas)
+                        {
+                            lista.AddRange(curso.Asignaturas);
+                        }
+
+                        if (_traeEvaludaciones)
+                        {
+                            foreach (var alumno in curso.Alumnos)
+                            {
+                                lista.AddRange(alumno.Evaluaciones);
+                                numEvaluaciones ++;
+                            }
+                        }
+
+                    }
+                    return (lista, numEvaluaciones);
+                }
+                 */
     }
 }
