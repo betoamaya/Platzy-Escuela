@@ -214,12 +214,12 @@ namespace Proy_Escuela
             return (lista);
         }
 
-        public Dictionary<string, IReadOnlyList<ObjetoEscuelaBase>> getDiciionarioObjetos()
+        public Dictionary<LlavesDiccionario, IReadOnlyList<ObjetoEscuelaBase>> getDiciionarioObjetos()
         {
-            var diccionario = new Dictionary<string, IReadOnlyList<ObjetoEscuelaBase>>();
-           
-            diccionario.Add("Escuela", new [] {Escuela});
-            diccionario.Add("Cursos", Escuela.Cursos);
+            var diccionario = new Dictionary<LlavesDiccionario, IReadOnlyList<ObjetoEscuelaBase>>();
+
+            diccionario.Add(LlavesDiccionario.Escuela, new[] { Escuela });
+            diccionario.Add(LlavesDiccionario.Cursos, Escuela.Cursos);
             return diccionario;
         }
 
