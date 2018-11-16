@@ -220,6 +220,22 @@ namespace Proy_Escuela
 
             diccionario.Add(LlavesDiccionario.Escuela, new[] { Escuela });
             diccionario.Add(LlavesDiccionario.Cursos, Escuela.Cursos);
+            List<Alumno> alumnosTemp = new List<Alumno>();
+            List<Evaluación> evaluacionesTemp = new List<Evaluación>();
+            List<Asignatura> asignaturasTemp = new List<Asignatura>();
+            foreach (var cur in Escuela.Cursos)
+            {
+                alumnosTemp.AddRange(cur.Alumnos);
+                foreach (var alum in cur.Alumnos)
+                {
+                    evaluacionesTemp.AddRange(alum.Evaluaciones);
+                }
+                asignaturasTemp.AddRange(cur.Asignaturas);
+            }
+            diccionario.Add(LlavesDiccionario.Alumnos, alumnosTemp);
+            diccionario.Add(LlavesDiccionario.Evaluaciones, evaluacionesTemp);
+            diccionario.Add(LlavesDiccionario.Asignaturas, asignaturasTemp);
+
             return diccionario;
         }
 
