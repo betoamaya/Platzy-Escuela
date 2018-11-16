@@ -237,14 +237,17 @@ namespace Proy_Escuela
             return diccionario;
         }
 
-        public void imprimirDiccionario(Dictionary<LlavesDiccionario, IReadOnlyList<ObjetoEscuelaBase>> _diccionario)
+        public void imprimirDiccionario(Dictionary<LlavesDiccionario, IReadOnlyList<ObjetoEscuelaBase>> _diccionario, bool _imprimirEval = false)
         {
             foreach (var dic in _diccionario)
             {
-                Printer.Titulo(dic.Key.ToString());
-                foreach (var Value in dic.Value)
+                if (_imprimirEval && dic.Key == LlavesDiccionario.Evaluaciones || dic.Key != LlavesDiccionario.Evaluaciones)
                 {
-                    WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                    Printer.Titulo(dic.Key.ToString());
+                    foreach (var Value in dic.Value)
+                    {
+                        WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                    }
                 }
             }
         }
