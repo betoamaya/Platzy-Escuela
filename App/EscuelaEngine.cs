@@ -34,6 +34,8 @@ namespace Proy_Escuela
 
             int numEvaluaciones = 0;
             var listaObjetos = ObtenerLista(out numEvaluaciones, _traeEvaludaciones: false);
+
+            var listaObjetos2 = ObtenerLista(_traeEvaludaciones: false);
         }
 
         private void CargarEvaluaciones()
@@ -161,6 +163,16 @@ namespace Proy_Escuela
             }
             return lista;
         } */
+        public List<ObjetoEscuelaBase> ObtenerLista(
+            bool _traeCursos = true,
+            bool _traeAlumnos = true,
+            bool _traeAsignaturas = true,
+            bool _traeEvaludaciones = true
+           )
+        {
+            return ObtenerLista(out int dumy, _traeCursos, _traeAlumnos, _traeAsignaturas, _traeEvaludaciones);
+        }
+
         public List<ObjetoEscuelaBase> ObtenerLista(
             out int numEvaluaciones,
             bool _traeCursos = true,
