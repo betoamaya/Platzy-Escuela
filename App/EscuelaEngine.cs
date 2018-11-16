@@ -36,9 +36,9 @@ namespace Proy_Escuela
             var listaObjetos = ObtenerLista(out numEvaluaciones, _traeEvaludaciones: false);
 
             var listaObjetos2 = ObtenerLista(_traeEvaludaciones: false);
-        }
 
-        
+            var resultado = getDiciionarioObjetos();
+        }
 
         private void CargarEvaluaciones()
         {
@@ -212,6 +212,15 @@ namespace Proy_Escuela
 
             }
             return (lista);
+        }
+
+        public Dictionary<string, IReadOnlyList<ObjetoEscuelaBase>> getDiciionarioObjetos()
+        {
+            var diccionario = new Dictionary<string, IReadOnlyList<ObjetoEscuelaBase>>();
+           
+            diccionario.Add("Escuela", new [] {Escuela});
+            diccionario.Add("Cursos", Escuela.Cursos);
+            return diccionario;
         }
 
 
