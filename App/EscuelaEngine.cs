@@ -163,7 +163,7 @@ namespace Proy_Escuela
             }
             return lista;
         } */
-        public List<ObjetoEscuelaBase> ObtenerLista(
+        public IReadOnlyList<ObjetoEscuelaBase> ObtenerLista(
             bool _traeCursos = true,
             bool _traeAlumnos = true,
             bool _traeAsignaturas = true,
@@ -173,7 +173,7 @@ namespace Proy_Escuela
             return ObtenerLista(out int dumy, _traeCursos, _traeAlumnos, _traeAsignaturas, _traeEvaludaciones);
         }
 
-        public List<ObjetoEscuelaBase> ObtenerLista(
+        public IReadOnlyList<ObjetoEscuelaBase> ObtenerLista(
             out int numEvaluaciones,
             bool _traeCursos = true,
             bool _traeAlumnos = true,
