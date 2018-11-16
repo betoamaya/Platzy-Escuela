@@ -38,6 +38,8 @@ namespace Proy_Escuela
             var listaObjetos2 = ObtenerLista(_traeEvaludaciones: false);
         }
 
+        
+
         private void CargarEvaluaciones()
         {
             foreach (var curso in Escuela.Cursos)
