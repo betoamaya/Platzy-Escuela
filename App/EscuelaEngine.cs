@@ -36,8 +36,6 @@ namespace Proy_Escuela
             var listaObjetos = ObtenerLista(out numEvaluaciones, _traeEvaludaciones: false);
 
             var listaObjetos2 = ObtenerLista(_traeEvaludaciones: false);
-
-            var resultado = getDiciionarioObjetos();
         }
 
         private void CargarEvaluaciones()
@@ -237,6 +235,18 @@ namespace Proy_Escuela
             diccionario.Add(LlavesDiccionario.Asignaturas, asignaturasTemp);
 
             return diccionario;
+        }
+
+        public void imprimirDiccionario(Dictionary<LlavesDiccionario, IReadOnlyList<ObjetoEscuelaBase>> _diccionario)
+        {
+            foreach (var dic in _diccionario)
+            {
+                Printer.Titulo(dic.Key.ToString());
+                foreach (var Value in dic.Value)
+                {
+                    WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                }
+            }
         }
 
 

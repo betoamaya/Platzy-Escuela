@@ -21,6 +21,9 @@ namespace Proy_Escuela
             ReadLine();
 
             engine.ImprimirCursos();
+
+            var resultado = engine.getDiciionarioObjetos();
+            engine.imprimirDiccionario(resultado);
         }
     }
 }
