@@ -23,7 +23,7 @@ namespace Proy_Escuela
             engine.ImprimirCursos();
 
             var resultado = engine.getDiciionarioObjetos();
-            engine.imprimirDiccionario(resultado);
+            engine.imprimirDiccionario(resultado, _imprimirEscuela: true, _imprimirCursos: true, _imprimirAlumno: true);
         }
     }
 }

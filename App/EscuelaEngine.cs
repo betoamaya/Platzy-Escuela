@@ -237,18 +237,77 @@ namespace Proy_Escuela
             return diccionario;
         }
 
-        public void imprimirDiccionario(Dictionary<LlavesDiccionario, IReadOnlyList<ObjetoEscuelaBase>> _diccionario, bool _imprimirEval = false)
+        public void imprimirDiccionario(
+            Dictionary<LlavesDiccionario, IReadOnlyList<ObjetoEscuelaBase>> _diccionario,
+            bool _imprimirEscuela = false,
+            bool _imprimirCursos = false,
+            bool _imprimirAlumno = false,
+            bool _imprimirAsignatura = false,
+            bool _imprimirEval = false)
         {
             foreach (var dic in _diccionario)
             {
-                if (_imprimirEval && dic.Key == LlavesDiccionario.Evaluaciones || dic.Key != LlavesDiccionario.Evaluaciones)
+                switch (dic.Key)
+                {
+                    case LlavesDiccionario.Escuela:
+                        if (_imprimirEscuela)
+                        {
+                            Printer.Titulo(dic.Key.ToString());
+                            foreach (var Value in dic.Value)
+                            {
+                                WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                            }
+                        }
+                        break;
+                        case LlavesDiccionario.Cursos:
+                        if (_imprimirCursos)
+                        {
+                            Printer.Titulo(dic.Key.ToString());
+                            foreach (var Value in dic.Value)
+                            {
+                                WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                            }
+                        }
+                        break;
+                        case LlavesDiccionario.Asignaturas:
+                        if (_imprimirAsignatura)
+                        {
+                            Printer.Titulo(dic.Key.ToString());
+                            foreach (var Value in dic.Value)
+                            {
+                                WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                            }
+                        }
+                        break;
+                        case LlavesDiccionario.Evaluaciones:
+                        if (_imprimirEval)
+                        {
+                            Printer.Titulo(dic.Key.ToString());
+                            foreach (var Value in dic.Value)
+                            {
+                                WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                            }
+                        }
+                        break;
+                        case LlavesDiccionario.Alumnos:
+                        if (_imprimirAlumno)
+                        {
+                            Printer.Titulo(dic.Key.ToString());
+                            foreach (var Value in dic.Value)
+                            {
+                                WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                            }
+                        }
+                        break;
+                }
+               /*  if (_imprimirEval && dic.Key == LlavesDiccionario.Evaluaciones || dic.Key != LlavesDiccionario.Evaluaciones)
                 {
                     Printer.Titulo(dic.Key.ToString());
                     foreach (var Value in dic.Value)
                     {
                         WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
                     }
-                }
+                } */
             }
         }
 
