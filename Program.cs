@@ -10,6 +10,8 @@ namespace Proy_Escuela
     {
         static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.ProcessExit += AccionDelEvento;
+
             var engine = new EscuelaEngine();
             engine.Inicializar();
             //Printer.MarioBros();
@@ -22,7 +24,16 @@ namespace Proy_Escuela
 
             engine.ImprimirCursos();
 
-            engine.Escuela.LimpiarLugar();
+            var resultado = engine.getDiciionarioObjetos();
+            engine.imprimirDiccionario(resultado, _imprimirEscuela: true, _imprimirCursos: true, _imprimirAlumno: true);
         }
+
+        private static void AccionDelEvento(object sender, EventArgs e)
+        {
+            Printer.Titulo("Saliendo...");
+            Printer.MarioBros();
+        }
+
+
     }
 }

@@ -32,7 +32,10 @@ namespace Proy_Escuela
             }
             CargarEvaluaciones();
 
-            var listaObjetos = ObtenerLista();
+            int numEvaluaciones = 0;
+            var listaObjetos = ObtenerLista(out numEvaluaciones, _traeEvaludaciones: false);
+
+            var listaObjetos2 = ObtenerLista(_traeEvaludaciones: false);
         }
 #region Metodos de Carga
         private void CargarEvaluaciones()
@@ -50,10 +53,12 @@ namespace Proy_Escuela
         {
             var listaCalificaciones = new List<Evaluación>();
             double califición = 0.0;
+            rng = new Random();
             foreach (var materia in asignaturas)
             {
-                califición = rng.NextDouble() * (5.0 - 0.0) + 0.0;
-                listaCalificaciones.Add(new Evaluación(){Nombre = materia.Nombre, Calificacion = califición});
+                float x = (float)(rng.NextDouble() * (5.0 - 0.0) + 0.0);
+                califición = Math.Round(x, 2);
+                listaCalificaciones.Add(new Evaluación() { Nombre = materia.Nombre, Calificacion = califición });
             }
             return listaCalificaciones;
         }
@@ -144,20 +149,204 @@ namespace Proy_Escuela
                 WriteLine($"Registros: {Escuela.Cursos.Count}\n");
             }
         }
-        public List<ObjetoEscuelaBase> ObtenerLista(){
+        /* public List<ObjetoEscuelaBase> ObtenerLista()
+        {
             var lista = new List<ObjetoEscuelaBase>();
-           lista.Add(Escuela);
-           lista.AddRange(Escuela.Cursos);
-           foreach (var curso in Escuela.Cursos)
-           {
-               lista.AddRange(curso.Alumnos);
-               lista.AddRange(curso.Asignaturas);
-               foreach (var alumno in curso.Alumnos)
-               {
-                   lista.AddRange(alumno.Evaluaciones);
-               }
-           }
+            lista.Add(Escuela);
+            lista.AddRange(Escuela.Cursos);
+            foreach (var curso in Escuela.Cursos)
+            {
+                lista.AddRange(curso.Alumnos);
+                lista.AddRange(curso.Asignaturas);
+                foreach (var alumno in curso.Alumnos)
+                {
+                    lista.AddRange(alumno.Evaluaciones);
+                }
+            }
             return lista;
+        } */
+        public IReadOnlyList<ObjetoEscuelaBase> ObtenerLista(
+            bool _traeCursos = true,
+            bool _traeAlumnos = true,
+            bool _traeAsignaturas = true,
+            bool _traeEvaludaciones = true
+           )
+        {
+            return ObtenerLista(out int dumy, _traeCursos, _traeAlumnos, _traeAsignaturas, _traeEvaludaciones);
         }
+
+        public IReadOnlyList<ObjetoEscuelaBase> ObtenerLista(
+            out int numEvaluaciones,
+            bool _traeCursos = true,
+            bool _traeAlumnos = true,
+            bool _traeAsignaturas = true,
+            bool _traeEvaludaciones = true
+            )
+        {
+            var lista = new List<ObjetoEscuelaBase>();
+            numEvaluaciones = 0;
+            lista.Add(Escuela);
+            if (_traeCursos)
+            {
+                lista.AddRange(Escuela.Cursos);
+            }
+            foreach (var curso in Escuela.Cursos)
+            {
+                if (_traeAlumnos)
+                {
+                    lista.AddRange(curso.Alumnos);
+                }
+                if (_traeAsignaturas)
+                {
+                    lista.AddRange(curso.Asignaturas);
+                }
+
+                if (_traeEvaludaciones)
+                {
+                    foreach (var alumno in curso.Alumnos)
+                    {
+                        lista.AddRange(alumno.Evaluaciones);
+                        numEvaluaciones++;
+                    }
+                }
+
+            }
+            return (lista);
+        }
+
+        public Dictionary<LlavesDiccionario, IReadOnlyList<ObjetoEscuelaBase>> getDiciionarioObjetos()
+        {
+            var diccionario = new Dictionary<LlavesDiccionario, IReadOnlyList<ObjetoEscuelaBase>>();
+
+            diccionario.Add(LlavesDiccionario.Escuela, new[] { Escuela });
+            diccionario.Add(LlavesDiccionario.Cursos, Escuela.Cursos);
+            List<Alumno> alumnosTemp = new List<Alumno>();
+            List<Evaluación> evaluacionesTemp = new List<Evaluación>();
+            List<Asignatura> asignaturasTemp = new List<Asignatura>();
+            foreach (var cur in Escuela.Cursos)
+            {
+                alumnosTemp.AddRange(cur.Alumnos);
+                foreach (var alum in cur.Alumnos)
+                {
+                    evaluacionesTemp.AddRange(alum.Evaluaciones);
+                }
+                asignaturasTemp.AddRange(cur.Asignaturas);
+            }
+            diccionario.Add(LlavesDiccionario.Alumnos, alumnosTemp);
+            diccionario.Add(LlavesDiccionario.Evaluaciones, evaluacionesTemp);
+            diccionario.Add(LlavesDiccionario.Asignaturas, asignaturasTemp);
+
+            return diccionario;
+        }
+
+        public void imprimirDiccionario(
+            Dictionary<LlavesDiccionario, IReadOnlyList<ObjetoEscuelaBase>> _diccionario,
+            bool _imprimirEscuela = false,
+            bool _imprimirCursos = false,
+            bool _imprimirAlumno = false,
+            bool _imprimirAsignatura = false,
+            bool _imprimirEval = false)
+        {
+            foreach (var dic in _diccionario)
+            {
+                switch (dic.Key)
+                {
+                    case LlavesDiccionario.Escuela:
+                        if (_imprimirEscuela)
+                        {
+                            Printer.Titulo(dic.Key.ToString());
+                            foreach (var Value in dic.Value)
+                            {
+                                WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                            }
+                        }
+                        break;
+                        case LlavesDiccionario.Cursos:
+                        if (_imprimirCursos)
+                        {
+                            Printer.Titulo(dic.Key.ToString());
+                            foreach (var Value in dic.Value)
+                            {
+                                WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                            }
+                        }
+                        break;
+                        case LlavesDiccionario.Asignaturas:
+                        if (_imprimirAsignatura)
+                        {
+                            Printer.Titulo(dic.Key.ToString());
+                            foreach (var Value in dic.Value)
+                            {
+                                WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                            }
+                        }
+                        break;
+                        case LlavesDiccionario.Evaluaciones:
+                        if (_imprimirEval)
+                        {
+                            Printer.Titulo(dic.Key.ToString());
+                            foreach (var Value in dic.Value)
+                            {
+                                WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                            }
+                        }
+                        break;
+                        case LlavesDiccionario.Alumnos:
+                        if (_imprimirAlumno)
+                        {
+                            Printer.Titulo(dic.Key.ToString());
+                            foreach (var Value in dic.Value)
+                            {
+                                WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                            }
+                        }
+                        break;
+                }
+               /*  if (_imprimirEval && dic.Key == LlavesDiccionario.Evaluaciones || dic.Key != LlavesDiccionario.Evaluaciones)
+                {
+                    Printer.Titulo(dic.Key.ToString());
+                    foreach (var Value in dic.Value)
+                    {
+                        WriteLine($"UniqueId: {Value.UniqueId}  Nombre: {Value.Nombre}");
+                    }
+                } */
+            }
+        }
+
+
+        /*
+                public (List<ObjetoEscuelaBase>, int) ObtenerLista(bool _traeCursos = true, bool _traeAlumnos = true, bool _traeAsignaturas = true, bool _traeEvaludaciones = true)
+                {
+                    var lista = new List<ObjetoEscuelaBase>();
+                    int numEvaluaciones = 0;
+                    lista.Add(Escuela);
+                    if (_traeCursos)
+                    {
+                        lista.AddRange(Escuela.Cursos);
+                    }
+                    foreach (var curso in Escuela.Cursos)
+                    {
+                        if (_traeAlumnos)
+                        {
+                            lista.AddRange(curso.Alumnos);
+                        }
+                        if (_traeAsignaturas)
+                        {
+                            lista.AddRange(curso.Asignaturas);
+                        }
+
+                        if (_traeEvaludaciones)
+                        {
+                            foreach (var alumno in curso.Alumnos)
+                            {
+                                lista.AddRange(alumno.Evaluaciones);
+                                numEvaluaciones ++;
+                            }
+                        }
+
+                    }
+                    return (lista, numEvaluaciones);
+                }
+                 */
     }
 }
