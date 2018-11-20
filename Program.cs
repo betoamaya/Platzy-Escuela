@@ -21,20 +21,23 @@ namespace Proy_Escuela
 
             WriteLine("\nPresione ENTER para continuar");
             Printer.Beep(1568, 200);
-            ReadLine();
+            //ReadLine();
 
             engine.ImprimirCursos();
 
             try
             {
                 var reporteador = new Reporteador(engine.getDiciionarioObjetos());
-                //var reporteador = new Reporteador(null);    
+                //var reporteador = new Reporteador(null);  
+                var lista = reporteador.GetListaEvaluaciones();  
             }
             catch (System.Exception ex)
             {
 
                 WriteLine($"Error:{ex.Source} Mensaje: {ex.Message}");
             }
+
+            
 
             /* var resultado = engine.getDiciionarioObjetos();
             engine.imprimirDiccionario(resultado, _imprimirEscuela: true, _imprimirCursos: true, _imprimirAlumno: true); */

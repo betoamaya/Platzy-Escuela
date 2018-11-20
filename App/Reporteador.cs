@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using Proy_Escuela.Entidades;
 
@@ -17,11 +18,14 @@ namespace Proy_Escuela.App
             
         }
 
-       /*  public IEnumerable<Evaluación> GetListaEvaluaciones(){
-           // IEnumerable<Evaluación> resultado = diccionario(LlavesDiccionario.Evaluaciones);
+        public IEnumerable<ObjetoEscuelaBase> GetListaEvaluaciones(){
+           var lista = diccionario.GetValueOrDefault(LlavesDiccionario.Escuela);
+            if (lista == null)
+            {
+                throw new System.ArgumentNullException(nameof(lista));
+            }
 
-
-           // return resultado;
-        } */
+            return lista.Cast<ObjetoEscuelaBase>();
+        }
     }
 }
