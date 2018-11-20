@@ -53,9 +53,11 @@ namespace Proy_Escuela
         {
             var listaCalificaciones = new List<Evaluación>();
             double califición = 0.0;
+            rng = new Random();
             foreach (var materia in asignaturas)
             {
-                califición = rng.NextDouble() * (5.0 - 0.0) + 0.0;
+                float x = (float)(rng.NextDouble() * (5.0 - 0.0) + 0.0);
+                califición = Math.Round(x, 2);
                 listaCalificaciones.Add(new Evaluación() { Nombre = materia.Nombre, Calificacion = califición });
             }
             return listaCalificaciones;
