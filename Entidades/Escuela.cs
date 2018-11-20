@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Proy_Escuela.Util;
 
 namespace Proy_Escuela.Entidades
 {
-    public class Escuela: ObjetoEscuelaBase
+    public class Escuela: ObjetoEscuelaBase, ILugar
     {
         public int AñoDeCreación { get; set; }
         public string Ciudad { get; set; }
         public string Pais { get; set; }
+        public string Dirección { get; set; }
         public TiposEscuela TipoEscuela { get; set; }
 
         public List<Curso> Cursos { get; set; }
@@ -24,6 +26,17 @@ namespace Proy_Escuela.Entidades
         public override string ToString()
         {
             return $"{TipoEscuela} \"{Nombre}\"!!! {System.Environment.NewLine}Fundada desde {AñoDeCreación} \nEn{Ciudad}, {Pais}";
+        }
+
+        public void LimpiarLugar()
+        {
+           Printer.DibujarLinea();
+           Console.WriteLine("Limpiando Escuela...");
+           foreach (var item in Cursos)
+           {
+               item.LimpiarLugar();
+           }
+           Printer.Titulo($"Escuela {Nombre} Limpio");
         }
 
        
