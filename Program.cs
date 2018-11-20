@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Proy_Escuela.App;
 using Proy_Escuela.Entidades;
 using Proy_Escuela.Util;
 using static System.Console;
@@ -24,8 +25,19 @@ namespace Proy_Escuela
 
             engine.ImprimirCursos();
 
-            var resultado = engine.getDiciionarioObjetos();
-            engine.imprimirDiccionario(resultado, _imprimirEscuela: true, _imprimirCursos: true, _imprimirAlumno: true);
+            try
+            {
+                var reporteador = new Reporteador(engine.getDiciionarioObjetos());
+                //var reporteador = new Reporteador(null);    
+            }
+            catch (System.Exception ex)
+            {
+
+                WriteLine($"Error:{ex.Source} Mensaje: {ex.Message}");
+            }
+
+            /* var resultado = engine.getDiciionarioObjetos();
+            engine.imprimirDiccionario(resultado, _imprimirEscuela: true, _imprimirCursos: true, _imprimirAlumno: true); */
         }
 
         private static void AccionDelEvento(object sender, EventArgs e)
@@ -33,7 +45,5 @@ namespace Proy_Escuela
             Printer.Titulo("Saliendo...");
             Printer.MarioBros();
         }
-
-
     }
 }
